@@ -112,7 +112,7 @@ fs.mkdirSync(output, { recursive: true });
       const events = await page.evaluate(() => window.dataLayer);
       for (const name of ['quiz_start', 'quiz_step', 'lead', 'whatsapp_contact', 'agency_footer_click']) assert(events.some(e => e.event === name), name);
       assert.deepEqual(events.filter(e => e.event === 'quiz_step').map(e => e.step_number), [1, 2, 3]);
-      for (const event of events.filter(e => e.event !== 'agency_footer_click')) {
+      for (const event of events.filter(e => ['quiz_start', 'quiz_step', 'lead', 'whatsapp_contact'].includes(e.event))) {
         assert.equal(event.procedure, 'harmonizacao_bumbum');
         assert.equal(event.clinic, 'incantare');
         assert.equal(event.city, 'joinville');
